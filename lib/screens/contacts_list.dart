@@ -8,18 +8,41 @@ class ContactsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Contatos')),
-      body: FutureBuilder(
-        future: findAll(),
+      body: FutureBuilder<List<Contact>>(
+        initialData: List(),//é uma lista de contatos FutureBuilder<List<Contact>>
+        future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
         builder: (context, snapshot) {
-          final List<Contact> contacts = snapshot.data;
+          switch(snapshot.connectionState){
+            case ConnectionState.none: //não executou ainda
+              break;
+            case ConnectionState.waiting://verificando que está em execução nao foi finalizado
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    Text('Loading..')
+                  ],
+                ),
+              );
+              break;
+            case ConnectionState.active: //trazer pedação de uma carregamento async
+              break;
+            case ConnectionState.done:
+              final List<Contact> contacts = snapshot.data;
 
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              final Contact contact = contacts[index];
-              return _ContactItem(contact);
-            },
-            itemCount: contacts.length,
-          );
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  final Contact contact = contacts[index];
+                  return _ContactItem(contact);
+                },
+                itemCount: contacts.length,
+              );
+              break;
+          }
+
+          return Text('Unknown error');
         },
       ),
       floatingActionButton: FloatingActionButton(

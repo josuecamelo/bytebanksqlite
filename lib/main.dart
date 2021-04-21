@@ -8,15 +8,15 @@ import 'dart:math';
 
 void main() {
   runApp(BytebankApp());
-  const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-  Random _rnd = Random();
-
-  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
-      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
-
-  save(Contact(0, getRandomString(new Random().nextInt(50) + 10), 1001)).then((id){
-    findAll().then((contacts) => debugPrint(contacts.toString()));
-  });
+  // const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  // Random _rnd = Random();
+  //
+  // String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+  //     length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  //
+  // save(Contact(0, getRandomString(new Random().nextInt(50) + 10), 1001)).then((id){
+  //   findAll().then((contacts) => debugPrint(contacts.toString()));
+  // });
 }
 
 class BytebankApp extends StatelessWidget {
