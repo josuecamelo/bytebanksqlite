@@ -10,7 +10,7 @@ class ContactsList extends StatelessWidget {
       appBar: AppBar(title: Text('Contatos')),
       body: FutureBuilder<List<Contact>>(
         initialData: List(),//é uma lista de contatos FutureBuilder<List<Contact>>
-        future: Future.delayed(Duration(seconds: 1)).then((value) => findAll()),
+        future: findAll(),
         builder: (context, snapshot) {
           switch(snapshot.connectionState){
             case ConnectionState.none: //não executou ainda
