@@ -3,31 +3,38 @@ import 'package:bytebankbd/models/contact.dart';
 import 'package:bytebankbd/screens/contact_form.dart';
 import 'package:flutter/material.dart';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends StatefulWidget  {
+  @override
+  State<StatefulWidget> createState() {
+   return _ContactListState();
+  }
+}
+
+class _ContactListState extends State<ContactsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Contatos')),
       body: FutureBuilder<List<Contact>>(
-        initialData: List(),//é uma lista de contatos FutureBuilder<List<Contact>>
+        initialData: List(),
+        //é uma lista de contatos FutureBuilder<List<Contact>>
         future: findAll(),
         builder: (context, snapshot) {
-          switch(snapshot.connectionState){
+          switch (snapshot.connectionState) {
             case ConnectionState.none: //não executou ainda
               break;
-            case ConnectionState.waiting://verificando que está em execução nao foi finalizado
+            case ConnectionState
+                .waiting: //verificando que está em execução nao foi finalizado
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(),
-                    Text('Loading..')
-                  ],
+                  children: [CircularProgressIndicator(), Text('Loading..')],
                 ),
               );
               break;
-            case ConnectionState.active: //trazer pedação de uma carregamento async
+            case ConnectionState
+                .active: //trazer pedação de uma carregamento async
               break;
             case ConnectionState.done:
               final List<Contact> contacts = snapshot.data;
@@ -50,7 +57,7 @@ class ContactsList extends StatelessWidget {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => ContactForm()))
               .then(
-                (newContact) => debugPrint(newContact.toString()),
+                (value) => setState(() {}),
               );
         },
         child: Icon(Icons.add),
